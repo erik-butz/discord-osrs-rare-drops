@@ -1,4 +1,5 @@
 const { client } = require('./botConnection');
+const { embedBuilder } = require('./embedMessage');
 
 const readNewMessages = () => {
   // When the client is ready, run this code (only once)
@@ -8,15 +9,12 @@ const readNewMessages = () => {
     // 1263911679268487299 = rare drops channel
     // 1289963294710431744 = raredroptesting channel
     if (message.channelId = '1263911679268487299') {
-      console.log(message);
-      // console.log(message.id !== 1290041386879680653);
+      const embedsData = message.embeds[0].data;
+      console.log(message.embeds[0].data);
       // Ignoring Discord bot message?.author?.id
       if (message?.author?.id !== '1289952988525232238') {
-        // console.log(JSON.stringify(message));
-
-        // message.channel.send('NEW MESSAGE ALERT');
-
-        // message.reply(`Replying to message ${message.content}`);
+        const messageBuilt = embedBuilder(embedsData);
+        message.channel.send({ embeds: [messageBuilt] });
       }
     }
   });
