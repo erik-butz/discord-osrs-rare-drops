@@ -12,10 +12,14 @@ const readNewMessages = () => {
       const embedsData = message?.embeds[0]?.data;
       const rsnFiltered = rsnFilterHelper(embedsData?.author?.name);
       const itemFiltered = itemFilterHelper(embedsData?.description);
+      // Checks to make sure pet isn't in it because the Embed message data for Pet has almost nothing in it.
+      if (embedsData?.description.includes('pet')) {
+        const messageBuilt = embedBuilder(embedsData);
+        client.channels.cache.get(`1293327521168887922`).send({ embeds: [messageBuilt] });
+      }
       // Checks whitelisted items & userss first
       // Makes sure the loot isn't from pvp (loot chest)
-      // Checks to make sure pet isn't in it because the Embed message data for Pet has almost nothing in it
-      if ((rsnFiltered?.length !== 0 && itemFiltered?.length !== 0 && !embedsData?.description.includes('Loot Chest')) || embedsData?.description.includes('pet')) {
+      else if (rsnFiltered?.length !== 0 && itemFiltered?.length !== 0 && !embedsData?.description.includes('Loot Chest')) {
         const messageBuilt = embedBuilder(embedsData);
         client.channels.cache.get(`1293327521168887922`).send({ embeds: [messageBuilt] });
       }

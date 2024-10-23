@@ -6,13 +6,13 @@ const embedBuilder = (embedsData) => {
   embedMessage.setTitle(embedsData?.author?.name);
   embedMessage.setColor(0x0099FF);
   embedMessage.setDescription(embedsData?.description);
-  embedMessage.setThumbnail(embedsData?.thumbnail?.url);
   embedMessage.setFooter({
     text: 'CAL-ZONE OSRS Rare Drops Bot', iconURL: 'https://static.wikia.nocookie.net/darkrunescape/images/a/ae/Default.PNG/revision/latest?cb=20071210112833'
   });
   // Only add the description GE Value field for non pet items (Not present on object in pet event)
   if (!embedsData?.description.includes('pet')) {
     embedMessage.addFields({ name: 'GE Value', value: embedsData?.fields[2]?.value });
+    embedMessage.setThumbnail(embedsData?.thumbnail?.url);
   }
 
   // Extra fields that can be used to modify EmbedBuilder class
