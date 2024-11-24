@@ -1,3 +1,12 @@
 # discord-osrs-rare-drops
 
-https://discord.com/oauth2/authorize?client_id=1289952988525232238&permissions=277226974208&integration_type=0&scope=bot
+Todos:
+
+- Implement Wise Old Man API integration for CC members & Name changes
+  - https://docs.wiseoldman.net/
+- Error Handling
+- Deployment (Don't have to host locally)
+- SQLite Storage of events & Users & Items
+- Command to add item to list
+- Command to add users to list
+- Logging 
