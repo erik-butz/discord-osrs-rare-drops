@@ -13,12 +13,11 @@ const readNewMessages = () => {
         // 1263911679268487299 = rare drops channel
         if (message?.channelId == '1263911679268487299' && message?.author?.id !== '1289952988525232238') {
           const embedsData = message?.embeds[0]?.data;
-          // Logging out empty description field for troubleshooting
-          if (!embedsData?.description) {
-            console.log(`MISSING DESCRIPTION: ${embedsData}`);
-          }
           const rsnFiltered = rsnFilterHelper(embedsData?.author?.name);
           const itemFiltered = itemFilterHelper(embedsData?.description);
+          if (!itemFiltered) {
+            console.error(`MISSING ITEMS: ${JSON.stringify(embedsData)}`);
+          }
           // Checks to make sure pet isn't in it because the Embed message data for Pet has almost nothing in it.
           if (embedsData?.description.includes('pet.')) {
             console.log(message?.embeds);
@@ -55,7 +54,7 @@ const itemFilterHelper = (description) => {
   }
   catch (err) {
     console.error(`Error in itemFilterHelper for: ${description}`);
-    throw new Error();
+    return undefined;
   }
 };
 
