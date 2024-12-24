@@ -1,6 +1,11 @@
-const botConnection = require('./src/bot/botConnection');
-const readNewMessages = require('./src/bot/readMessage');
+const { loginToBot } = require('./src/bot/botConnection');
+const { readNewMessages } = require('./src/bot/readMessage');
+const { fetchWomUsers } = require('./src/bot/helpers/womNameFetch');
 
-botConnection.loginToBot();
+loginToBot();
 
-readNewMessages.readNewMessages();
+readNewMessages();
+
+setInterval(() => {
+  fetchWomUsers();
+}, 21600000);
