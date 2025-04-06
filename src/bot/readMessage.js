@@ -7,12 +7,18 @@ const readNewMessages = () => {
   try {
     client.on("messageCreate", message => {
       const readChannelId = process.env.NODE_ENV === 'production' ? process.env.READ_CHANNEL_ID_CLAN : process.env.READ_CHANNEL_ID_PERSONAL;
-      const writeChannelId = process.env.NODE_ENV === 'production' ? process.env.WRITE_CHANNEL_ID_PERSONAL : process.env.WRITE_CHANNEL_ID_PERSONAL;
+      const writeChannelId = process.env.NODE_ENV === 'production' ? process.env.WRITE_CHANNEL_ID_CLAN : process.env.WRITE_CHANNEL_ID_PERSONAL;
       const botId = process.env.NODE_ENV === 'production' ? process.env.BOT_ID_CLAN : process.env.BOT_ID_PERSONAL;
+
+      // Used for setting up to fetch botId when writing to channel. Need botId so we don't have an infinite loop of reading and writing to our own messages
+      // if (process.env.NODE_ENV === 'production' && parseInt(message?.author?.id) !== parseInt(botId)
+      //   && message?.channelId == readChannelId) {
+      //   console.log(`MESSAGE: ${JSON.stringify(message)}`);
+      // }
+
       // Filter out screenshots (comes in as a map and shouldn't be there on normal embeds messages)
       if (!message?.attachments?.size) {
         // Only reading messages in specific Channel
-        // 1263911679268487299 = rare drops channel
         if (message?.channelId == readChannelId && message?.author?.id !== botId) {
           const embedsData = message?.embeds[0]?.data;
           const rsnFiltered = rsnFilterHelper(embedsData?.author?.name);
@@ -33,10 +39,12 @@ const readNewMessages = () => {
             const messageBuilt = embedBuilder(embedsData);
             client.channels.cache.get(`${writeChannelId}`).send({ embeds: [messageBuilt] });
           }
+          // message.delete().catch((err) => {
+          //   console.error(`Error deleting message: ${err}`);
+          // })
         }
       }
     });
-
   } catch (err) {
     console.log(err?.message ?? err);
   }
