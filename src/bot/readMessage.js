@@ -18,30 +18,31 @@ const readNewMessages = () => {
 
       // Filter out screenshots (comes in as a map and shouldn't be there on normal embeds messages)
       if (!message?.attachments?.size) {
+        const embedsData = message?.embeds[0]?.data;
         // Only reading messages in specific Channel
-        if (message?.channelId == readChannelId && message?.author?.id !== botId) {
-          const embedsData = message?.embeds[0]?.data;
-          const rsnFiltered = rsnFilterHelper(embedsData?.author?.name);
-          const itemFiltered = itemFilterHelper(embedsData?.description);
-          if (!itemFiltered && !embedsData?.description.includes('pet.')) {
-            console.error(`MISSING ITEMS: ${JSON.stringify(embedsData)}`);
-          }
+        if (message?.channelId == readChannelId && message?.author?.id !== botId && !embedsData?.description.includes('Loot Chest')) {
           // Checks to make sure pet isn't in it because the Embed message data for Pet has almost nothing in it.
           if (embedsData?.description.includes('pet.')) {
             console.log(message?.embeds);
             const messageBuilt = embedBuilder(embedsData);
             client.channels.cache.get(`${writeChannelId}`).send({ embeds: [messageBuilt] });
+          } else {
+            const rsnFiltered = rsnFilterHelper(embedsData?.author?.name);
+            const itemFiltered = itemFilterHelper(embedsData?.description);
+            if (!itemFiltered) {
+              console.error(`MISSING ITEMS: ${JSON.stringify(embedsData)}`);
+            }
+            // Checks whitelisted items & users first
+            // Makes sure the loot isn't from pvp (loot chest)
+            else if (rsnFiltered?.length !== 0 && itemFiltered?.length !== 0) {
+              console.log(message?.embeds[0]);
+              const messageBuilt = embedBuilder(embedsData);
+              client.channels.cache.get(`${writeChannelId}`).send({ embeds: [messageBuilt] });
+            }
+            // message.delete().catch((err) => {
+            //   console.error(`Error deleting message: ${err}`);
+            // })
           }
-          // Checks whitelisted items & userss first
-          // Makes sure the loot isn't from pvp (loot chest)
-          else if (rsnFiltered?.length !== 0 && itemFiltered?.length !== 0 && !embedsData?.description.includes('Loot Chest')) {
-            console.log(message?.embeds[0]);
-            const messageBuilt = embedBuilder(embedsData);
-            client.channels.cache.get(`${writeChannelId}`).send({ embeds: [messageBuilt] });
-          }
-          // message.delete().catch((err) => {
-          //   console.error(`Error deleting message: ${err}`);
-          // })
         }
       }
     });
