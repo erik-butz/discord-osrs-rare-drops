@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start ecosystem.config.js --name personal-bot --env development --watch",
+    "start": "pm2 start ecosystem.config.js --name personal-bot --env production --watch",
     "start-clan": "pm2 start ecosystem.prod.config.js --name clan-bot --env production --watch"
   },
   "author": "",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@wise-old-man/utils": "^3.3.6",
     "discord.js": "^14.16.3",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "pm2": "^6.0.13"
   }
 }

@@ -2,6 +2,7 @@ module.exports = {
   apps: [{
     name: "app",
     script: "./index.js",
+    watch: true,
     env: {
       NODE_ENV: "development"
     },
@@ -12,6 +13,7 @@ module.exports = {
       NODE_ENV: "staging",
     },
     env_production: {
+      LOCATION: "non-clan",
       NODE_ENV: "production",
     }
   }]
