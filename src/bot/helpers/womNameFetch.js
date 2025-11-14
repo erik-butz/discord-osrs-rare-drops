@@ -19,6 +19,8 @@ const fetchWomUsers = async () => {
     });
   } catch (err) {
     console.error(`Error in fetchWomUser: ${err?.message ?? err}`);
+    const json = JSON.stringify(rsns);
+    fs.writeFileSync('whitelistRSNs.json', json);
   }
 };
 
