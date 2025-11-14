@@ -6,6 +6,6 @@ loginToBot();
 
 readNewMessages();
 
-setInterval(() => {
-  fetchWomUsers();
-}, 21600000);
+// setInterval(() => {
+//   fetchWomUsers();
+// }, 21600000);

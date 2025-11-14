@@ -3,6 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 
 const embedBuilder = (embedsData) => {
   try {
+    console.log(`embedsData: ${JSON.stringify(embedsData)}`);
     const embedMessage = new EmbedBuilder();
     embedMessage.setTitle(embedsData?.author?.name);
     embedMessage.setColor(0x0099FF);
