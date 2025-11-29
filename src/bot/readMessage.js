@@ -47,7 +47,7 @@ const readNewMessages = () => {
       }
     });
   } catch (err) {
-    console.log(err?.message ?? err);
+    console.error(err?.message ?? err);
   }
 };
 
