@@ -9,7 +9,6 @@ const readNewMessages = () => {
       const readChannelId = process.env.LOCATION === 'clan' ? process.env.READ_CHANNEL_ID_CLAN : process.env.READ_CHANNEL_ID_PERSONAL;
       const writeChannelId = process.env.LOCATION === 'clan' ? process.env.WRITE_CHANNEL_ID_CLAN : process.env.WRITE_CHANNEL_ID_PERSONAL;
       const botId = process.env.LOCATION === 'clan' ? process.env.BOT_ID_CLAN : process.env.BOT_ID_PERSONAL;
-
       // Used for setting up to fetch botId when writing to channel. Need botId so we don't have an infinite loop of reading and writing to our own messages
       // if (process.env.NODE_ENV === 'production' && parseInt(message?.author?.id) !== parseInt(botId)
       //   && message?.channelId == readChannelId) {
