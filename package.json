@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "pm2 start ecosystem.config.js --name personal-bot --env production --watch",
-    "start-clan": "pm2 start ecosystem.prod.config.js --name clan-bot --env production --watch"
+    "start-clan": "pm2 start ecosystem.prod.config.js --name clan-bot --env production --watch",
+    "start-test": "node ./index.js"
   },
   "author": "",
   "license": "ISC",

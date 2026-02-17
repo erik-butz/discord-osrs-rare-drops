@@ -6,6 +6,7 @@ Todos:
   - https://docs.wiseoldman.net/
 - Error Handling
 - Deployment (Don't have to host locally)
+- Dink Documentation https://github.com/pajlads/DinkPlugin
 - SQLite Storage of events & Users & Items
 - Command to add item to list
 - Command to add users to list
