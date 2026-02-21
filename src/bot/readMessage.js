@@ -53,13 +53,14 @@ const readNewMessages = () => {
             client.channels.cache.get(`${miscAchievementsWriteChannelId}`).send({ embeds: [embedsData] });
           }
           else {
-            const rsnFiltered = rsnFilterHelper(embedsData?.author?.name);
+            // const rsnFiltered = rsnFilterHelper(embedsData?.author?.name);
             const itemFiltered = itemFilterHelper(embedsData?.description);
             if (!itemFiltered) {
-              console.error(`No Item Found For ${embedsData?.author?.name}: ${JSON.stringify(embedsData?.description)}`);
+              // console.error(`No Item Found For ${embedsData?.author?.name}: ${JSON.stringify(embedsData?.description)}`);
             }
             // Checks whitelisted items & users first
-            else if (rsnFiltered?.length !== 0 && itemFiltered?.length !== 0) {
+            // else if (rsnFiltered?.length !== 0 && itemFiltered?.length !== 0) {
+            else if (itemFiltered?.length !== 0) {
               console.log(`itemFiltered: ${itemFiltered}`);
               client.channels.cache.get(`${writeChannelId}`).send({ embeds: [embedsData] });
             }
