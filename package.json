@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@wise-old-man/utils": "^3.3.15",
-    "discord.js": "^13.17.1",
+    "discord.js": "^14.25.1",
     "dotenv": "^16.6.1",
     "pm2": "^6.0.14"
   }
